@@ -7,7 +7,7 @@ Configure and automate KDE Plasma DPI scaling from the command line by using a J
 ## Purpose
 This tool is particularly handy for people who need different scaling factors at differnt times. 
 
-Scenario: A HiDPI laptop that needs a scaling of 1.5 to be usable. Which is then docked onto a standard 1080p display that needs a 1.0 scaling.
+Scenario: A HiDPI laptop that needs a scaling of 1.5 to be usable, which is then docked onto a standard 1080p display that needs a 1.0 scaling.
 
 Manually changing DPI settings, panel height/width, clock font or other settings for widgets each time the computer is connected to a different display is tedious.
 
