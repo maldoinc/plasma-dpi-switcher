@@ -1,0 +1,50 @@
+#! /usr/bin/env python
+
+import argparse
+from os.path import expanduser as expand
+
+from utils import get_font_dpi, display_get_scaling_str, plasma, read_profile, output_list_names
+
+CONFIG_KDEGLOBALS = expand('~/.config/kdeglobals')
+CONFIG_KCMFONTS = expand('~/.config/kcmfonts')
+CONFIG_KCMINPUT = expand('~/.config/kcminputrc')
+CONFIG_STARTUP = expand('~/.config/startupconfig')
+CONFIG_SHELL = expand('~/.config/plasmashellrc')
+CONFIG_SPLASH = expand('~/.config/ksplashrc')
+CONFIG_APPLETS = expand('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
+
+parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
+parser.add_argument('--profile', dest='profile', required=True)
+parser.add_argument('--config', dest='config', required=True)
+
+args = parser.parse_args()
+profile = read_profile(args.config, args.profile)
+
+params = {
+    "font_dpi": get_font_dpi(profile.scaling),
+    "cursor_size": profile.cursor.size,
+    "screen_scale_factors": display_get_scaling_str(output_list_names(), profile.scaling),
+    "ksplash_engine": plasma.config_read(CONFIG_SPLASH, 'KSplash', 'Engine'),
+    "ksplash_theme": plasma.config_read(CONFIG_SPLASH, 'KSplash', 'Theme'),
+    "cursor_theme": plasma.config_read(CONFIG_KCMINPUT, "Mouse", "cursorTheme")
+}
+
+plasma.kill()
+
+plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
+plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["screen_scale_factors"])
+plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["font_dpi"])
+plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["cursor_size"])
+
+plasma.generate_startup_script(CONFIG_STARTUP, **params)
+
+for panel in profile.panels:
+    groups = ['PlasmaViews']
+    groups.extend(panel.groups)
+
+    plasma.config_write(CONFIG_SHELL, groups, "thickness", panel.thickness)
+
+for widget in profile.widgets:
+    plasma.config_write(CONFIG_APPLETS, widget.groups, widget.key, widget.value)
+
+plasma.session_end()
