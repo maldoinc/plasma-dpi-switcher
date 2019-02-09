@@ -16,6 +16,7 @@ CONFIG_APPLETS = expand('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--profile', dest='profile', required=True)
 parser.add_argument('--config', dest='config', required=True)
+parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
 profile = read_profile(args.config, args.profile)
@@ -47,4 +48,5 @@ for panel in profile.panels:
 for widget in profile.widgets:
     plasma.config_write(CONFIG_APPLETS, widget.groups, widget.key, widget.value)
 
-plasma.session_end()
+if not args.no_logout:
+    plasma.session_end()
