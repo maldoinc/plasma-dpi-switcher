@@ -5,13 +5,13 @@ import subprocess
 def config_write(filename, group, key, value):
     params = ['kwriteconfig5', '--file', filename, '--key', key]
 
-    if not isinstance(group, list):
-        params.append('--group')
-        params.append(str(group))
-    else:
+    if isinstance(group, list):
         for g in group:
             params.append('--group')
             params.append(str(g))
+    else:
+        params.append('--group')
+        params.append(str(group))
 
     params.append(str(value))
 
