@@ -1,17 +1,17 @@
 #! /usr/bin/env python
 
 import argparse
-from os.path import expanduser as expand
+from os.path import expanduser
 
 from utils import get_font_dpi, display_get_scaling_str, plasma, read_profile, output_list_names
 
-CONFIG_KDEGLOBALS = expand('~/.config/kdeglobals')
-CONFIG_KCMFONTS = expand('~/.config/kcmfonts')
-CONFIG_KCMINPUT = expand('~/.config/kcminputrc')
-CONFIG_STARTUP = expand('~/.config/startupconfig')
-CONFIG_SHELL = expand('~/.config/plasmashellrc')
-CONFIG_SPLASH = expand('~/.config/ksplashrc')
-CONFIG_APPLETS = expand('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
+CONFIG_KDEGLOBALS = expanduser('~/.config/kdeglobals')
+CONFIG_KCMFONTS = expanduser('~/.config/kcmfonts')
+CONFIG_KCMINPUT = expanduser('~/.config/kcminputrc')
+CONFIG_STARTUP = expanduser('~/.config/startupconfig')
+CONFIG_SHELL = expanduser('~/.config/plasmashellrc')
+CONFIG_SPLASH = expanduser('~/.config/ksplashrc')
+CONFIG_APPLETS = expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--profile', required=True)
