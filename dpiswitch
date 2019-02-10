@@ -14,8 +14,8 @@ CONFIG_SPLASH = expand('~/.config/ksplashrc')
 CONFIG_APPLETS = expand('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
-parser.add_argument('--profile', dest='profile', required=True)
-parser.add_argument('--config', dest='config', required=True)
+parser.add_argument('--profile', required=True)
+parser.add_argument('--config', required=True)
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
