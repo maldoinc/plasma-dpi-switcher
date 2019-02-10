@@ -40,10 +40,7 @@ plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["cursor_size"
 plasma.generate_startup_script(CONFIG_STARTUP, **params)
 
 for panel in profile.panels:
-    groups = ['PlasmaViews']
-    groups.extend(panel.groups)
-
-    plasma.config_write(CONFIG_SHELL, groups, "thickness", panel.thickness)
+    plasma.config_write(CONFIG_SHELL, panel.groups, "thickness", panel.thickness)
 
 for widget in profile.widgets:
     plasma.config_write(CONFIG_APPLETS, widget.groups, widget.key, widget.value)
