@@ -21,21 +21,17 @@ parser.add_argument('--no-logout', action='store_true', help="Do not end current
 args = parser.parse_args()
 profile = read_profile(args.config, args.profile)
 
-params = {
-    "font_dpi": get_font_dpi(profile.scaling),
-    "cursor_size": profile.cursor.size,
-    "screen_scale_factors": display_get_scaling_str(output_list_names(), profile.scaling),
-    "ksplash_engine": plasma.config_read(CONFIG_SPLASH, 'KSplash', 'Engine'),
-    "ksplash_theme": plasma.config_read(CONFIG_SPLASH, 'KSplash', 'Theme'),
-    "cursor_theme": plasma.config_read(CONFIG_KCMINPUT, "Mouse", "cursorTheme")
-}
+params = plasma.read_startup_script(CONFIG_STARTUP)
+params['kcmfonts_general_forcefontdpi'] = get_font_dpi(profile.scaling)
+params['kcminputrc_mouse_cursorsize'] = profile.cursor.size
+params['kdeglobals_kscreen_screenscalefactors'] = display_get_scaling_str(output_list_names(), profile.scaling)
 
 plasma.kill()
 
 plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
-plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["screen_scale_factors"])
-plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["font_dpi"])
-plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["cursor_size"])
+plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["kdeglobals_kscreen_screenscalefactors"])
+plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["kcmfonts_general_forcefontdpi"])
+plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["kcminputrc_mouse_cursorsize"])
 
 plasma.generate_startup_script(CONFIG_STARTUP, **params)
 
