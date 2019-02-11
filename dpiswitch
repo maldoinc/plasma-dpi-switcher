@@ -3,7 +3,7 @@
 import argparse
 from os.path import expanduser
 
-from utils import get_font_dpi, display_get_scaling_str, plasma, read_profile, output_list_names
+from utils import get_font_dpi, display_get_scaling_str, plasma, load_profile, output_list_names
 
 CONFIG_KDEGLOBALS = expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = expanduser('~/.config/kcmfonts')
@@ -19,7 +19,10 @@ parser.add_argument('--config', required=True)
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
-profile = read_profile(args.config, args.profile)
+profile = load_profile(args.config, args.profile)
+
+if not profile:
+    exit(1)
 
 params = plasma.read_startup_script(CONFIG_STARTUP)
 params['kcmfonts_general_forcefontdpi'] = get_font_dpi(profile.scaling)

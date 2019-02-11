@@ -1,5 +1,7 @@
 import json
+import sys
 from collections import namedtuple
+from json.decoder import JSONDecodeError
 
 from Xlib import display
 from Xlib.ext import randr
@@ -21,11 +23,26 @@ def get_font_dpi(scaling):
     return int(96 * scaling)
 
 
-def read_profile(filename, name):
-    params = json.load(open(filename, 'r'), object_hook=lambda d: namedtuple('Profile', d.keys())(*d.values()))
+def load_config_file(filename):
+    return json.load(open(filename, 'r'), object_hook=lambda d: namedtuple('Profile', d.keys())(*d.values()))
 
-    for profile in params.profiles:
+
+def find_profile(config, name):
+    for profile in config.profiles:
         if profile.name == name:
             return profile
 
     return None
+
+
+def load_profile(filename, profilename):
+    try:
+        config = load_config_file(filename)
+
+        return find_profile(config, profilename)
+    except JSONDecodeError as e:
+        print("[ERR] [JSON Decode error] Unable to parse configuration file! {}".format(e), file=sys.stderr)
+        return False
+    except OSError as e:
+        print("[ERR] [OS Error] {}".format(e), file=sys.stderr)
+        return False
