@@ -19,33 +19,32 @@ parser.add_argument('--config', required=True)
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
-profile = load_profile(args.config, args.profile)
+try:
+    validator.assert_valid_config(args.config, 'schema.json')
+    profile = load_profile(args.config, args.profile)
 
-if not (profile and validator.validate_json(args.config, 'schema.json')):
+    params = plasma.read_startup_script(CONFIG_STARTUP)
+    params['kcmfonts_general_forcefontdpi'] = get_font_dpi(profile.scaling)
+    params['kcminputrc_mouse_cursorsize'] = profile.cursor.size
+    params['kdeglobals_kscreen_screenscalefactors'] = display_get_scaling_str(output_list_names(), profile.scaling)
+
+    plasma.kill()
+
+    plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
+    plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["kdeglobals_kscreen_screenscalefactors"])
+    plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["kcmfonts_general_forcefontdpi"])
+    plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["kcminputrc_mouse_cursorsize"])
+
+    plasma.generate_startup_script(CONFIG_STARTUP, **params)
+
+    for panel in profile.panels:
+        plasma.config_write(CONFIG_SHELL, panel.groups, "thickness", panel.thickness)
+
+    for widget in profile.widgets:
+        plasma.config_write(CONFIG_APPLETS, widget.groups, widget.key, widget.value)
+
+    if not args.no_logout:
+        plasma.session_end()
+except Exception as e:
+    print("[ERR] {}".format(e))
     exit(1)
-
-
-exit(0)
-
-params = plasma.read_startup_script(CONFIG_STARTUP)
-params['kcmfonts_general_forcefontdpi'] = get_font_dpi(profile.scaling)
-params['kcminputrc_mouse_cursorsize'] = profile.cursor.size
-params['kdeglobals_kscreen_screenscalefactors'] = display_get_scaling_str(output_list_names(), profile.scaling)
-
-plasma.kill()
-
-plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
-plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["kdeglobals_kscreen_screenscalefactors"])
-plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["kcmfonts_general_forcefontdpi"])
-plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["kcminputrc_mouse_cursorsize"])
-
-plasma.generate_startup_script(CONFIG_STARTUP, **params)
-
-for panel in profile.panels:
-    plasma.config_write(CONFIG_SHELL, panel.groups, "thickness", panel.thickness)
-
-for widget in profile.widgets:
-    plasma.config_write(CONFIG_APPLETS, widget.groups, widget.key, widget.value)
-
-if not args.no_logout:
-    plasma.session_end()
