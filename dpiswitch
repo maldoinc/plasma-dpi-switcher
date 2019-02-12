@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 
 import argparse
-from os.path import expanduser
+import sys
+from os.path import expanduser, join
 
 from utils import get_font_dpi, display_get_scaling_str, plasma, load_profile, output_list_names, validator
 
@@ -20,7 +21,7 @@ parser.add_argument('--no-logout', action='store_true', help="Do not end current
 
 args = parser.parse_args()
 try:
-    validator.assert_valid_config(args.config, 'schema.json')
+    validator.assert_valid_config(args.config, join(sys.path[0], 'schema.json'))
     profile = load_profile(args.config, args.profile)
 
     params = plasma.read_startup_script(CONFIG_STARTUP)
