@@ -38,8 +38,12 @@ def find_profile(config, name):
 def load_profile(filename, profilename):
     try:
         config = load_config_file(filename)
+        profile = find_profile(config, profilename)
 
-        return find_profile(config, profilename)
+        if profile is None:
+            print("[ERR] Unable to find profile '{}'".format(profilename))
+
+        return profile
     except JSONDecodeError as e:
         print("[ERR] [JSON Decode error] Unable to parse configuration file! {}".format(e), file=sys.stderr)
         return False
