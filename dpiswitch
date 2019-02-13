@@ -32,7 +32,8 @@ try:
     plasma.kill()
 
     plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
-    plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", params["kdeglobals_kscreen_screenscalefactors"])
+    plasma.config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors",
+                        params["kdeglobals_kscreen_screenscalefactors"])
     plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["kcmfonts_general_forcefontdpi"])
     plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["kcminputrc_mouse_cursorsize"])
 
