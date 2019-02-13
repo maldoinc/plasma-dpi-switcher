@@ -1,4 +1,5 @@
 import json
+import os
 from collections import namedtuple
 
 from Xlib import display
@@ -19,6 +20,12 @@ def display_get_scaling_str(displays, scaling):
 
 def get_font_dpi(scaling):
     return int(96 * scaling)
+
+
+def get_default_config_filename():
+    f = os.path.join(os.environ.get("XDG_CONFIG_HOME", "~/.config"), "maldoinc/dpiswitch/profile.json")
+
+    return os.path.expanduser(f)
 
 
 def load_config_file(filename):

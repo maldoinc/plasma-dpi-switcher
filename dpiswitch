@@ -4,7 +4,8 @@ import argparse
 import sys
 from os.path import expanduser, join
 
-from utils import get_font_dpi, display_get_scaling_str, plasma, load_profile, output_list_names, validator
+from utils import *
+from utils import validator, plasma
 
 CONFIG_KDEGLOBALS = expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = expanduser('~/.config/kcmfonts')
@@ -16,7 +17,7 @@ CONFIG_APPLETS = expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--profile', required=True)
-parser.add_argument('--config', required=True)
+parser.add_argument('--config', default=get_default_config_filename())
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
