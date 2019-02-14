@@ -41,15 +41,16 @@ def find_profile(config, name):
 
 
 def prompt_for_profile(config):
-    print("Available profiles")
-    print("==================")
+    print("DPISWITCH - Available profiles\n")
+    print(" #  {:15} {}".format("Name", "Description"))
 
-    profiles = [p.name for p in config.profiles]
+    for index, profile in enumerate(config.profiles):
+        print("[{}] {:15} {}".format(index + 1, profile.name, profile.description))
+    print()
 
-    for index, profile in enumerate(profiles):
-        print("[{}] {}".format(index + 1, profile))
+    index = int(input("Choose a profile number: ")) - 1
 
-    return profiles[int(input("Choose a profile number: ")) - 1]
+    return config.profiles[index].name
 
 
 def load_profile(filename, profilename):
