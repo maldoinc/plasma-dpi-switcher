@@ -40,6 +40,18 @@ def find_profile(config, name):
     return None
 
 
+def prompt_for_profile(config):
+    print("Available profiles")
+    print("==================")
+
+    profiles = [p.name for p in config.profiles]
+
+    for index, profile in enumerate(profiles):
+        print("[{}] {}".format(index + 1, profile))
+
+    return profiles[int(input("Choose a profile number: ")) - 1]
+
+
 def load_profile(filename, profilename):
     config = load_config_file(filename)
     profile = find_profile(config, profilename)
