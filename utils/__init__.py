@@ -51,14 +51,3 @@ def prompt_for_profile(config):
     index = int(input("Choose a profile number: ")) - 1
 
     return config.profiles[index].name
-
-
-def load_profile(filename, profilename):
-    config = load_config_file(filename)
-    profile = find_profile(config, profilename)
-
-    if profile is None:
-        raise Exception("Unable to find profile '{}'".format(profilename))
-
-    return profile
-

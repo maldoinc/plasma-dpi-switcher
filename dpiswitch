@@ -2,18 +2,18 @@
 
 import argparse
 import sys
-from os.path import expanduser, join
+import os
 
 from utils import *
 from utils import validator, plasma
 
-CONFIG_KDEGLOBALS = expanduser('~/.config/kdeglobals')
-CONFIG_KCMFONTS = expanduser('~/.config/kcmfonts')
-CONFIG_KCMINPUT = expanduser('~/.config/kcminputrc')
-CONFIG_STARTUP = expanduser('~/.config/startupconfig')
-CONFIG_SHELL = expanduser('~/.config/plasmashellrc')
-CONFIG_SPLASH = expanduser('~/.config/ksplashrc')
-CONFIG_APPLETS = expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
+CONFIG_KDEGLOBALS = os.path.expanduser('~/.config/kdeglobals')
+CONFIG_KCMFONTS = os.path.expanduser('~/.config/kcmfonts')
+CONFIG_KCMINPUT = os.path.expanduser('~/.config/kcminputrc')
+CONFIG_STARTUP = os.path.expanduser('~/.config/startupconfig')
+CONFIG_SHELL = os.path.expanduser('~/.config/plasmashellrc')
+CONFIG_SPLASH = os.path.expanduser('~/.config/ksplashrc')
+CONFIG_APPLETS = os.path.expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--profile')
@@ -22,7 +22,7 @@ parser.add_argument('--no-logout', action='store_true', help="Do not end current
 
 args = parser.parse_args()
 try:
-    validator.assert_valid_config(args.config, join(sys.path[0], 'schema.json'))
+    validator.assert_valid_config(args.config, os.path.join(sys.path[0], 'schema.json'))
     config = load_config_file(args.config)
 
     profilename = args.profile if args.profile is not None else prompt_for_profile(config)
@@ -44,7 +44,8 @@ try:
     plasma.config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", params["kcmfonts_general_forcefontdpi"])
     plasma.config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", params["kcminputrc_mouse_cursorsize"])
 
-    plasma.generate_startup_script(CONFIG_STARTUP, **params)
+    if os.path.isfile(CONFIG_STARTUP):
+        os.remove(CONFIG_STARTUP)
 
     for panel in profile.panels:
         plasma.config_write(CONFIG_SHELL, panel.groups, "thickness", panel.thickness)
