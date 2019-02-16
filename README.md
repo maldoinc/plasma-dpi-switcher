@@ -5,7 +5,7 @@ Configure and automate KDE Plasma DPI scaling from the command line by using a J
 ---
 
 ## Purpose
-This tool is particularly handy for people who need different scaling factors at differnt times. Such as using a laptop where the built in display and the external one(s) need different scaling values.
+This tool is particularly handy for people who need different scaling factors at different times. Such as using a laptop where the built in display and the external one(s) need different scaling values.
 
 Manually changing DPI settings, panel height/width, clock font or other settings for widgets each time the computer is connected to a different display is tedious.
 
@@ -13,9 +13,11 @@ This tool will automatically update all the necessary settings reducing manual w
 
 ## Usage
 
-`$ dpiswitch --config profiles.json --profile name`
+`$ dpiswitch [--config profiles.json] [--profile name]`
 
-Nb: Executing `dpiswitch` will kill your current plasma session and force a logout, so make sure not to have any unsaved work.
+If no value for `config` is specified, it will default to `~/.config/maldoinc/dpiswitch/profile.json`. If `profile` is omitted, then a menu listing all the profiles will be shown.
+
+> Nb: Executing `dpiswitch` will kill your current plasma session and force a logout, so make sure not to have any unsaved work.
 
 Users need to create their own configuration file based on their scaling factors and the widget/panel configuration in the system. A sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
 
@@ -77,3 +79,15 @@ each of the groups is an element of the object inside the `panels` array. The ab
 
 * Executing this tool will kill your Plasma session in order not to have the DE overwrite the newly updated values.
 * A logout is needed for all the DPI scaling features to be fully applied.
+* Beware that Plasma's fractional scaling is a work in progress and may cause different glitches and/or artifacts throughout the desktop or programs. Use integer scaling factors for best results.
+
+
+## Future work
+
+* Automatic profile generation based on current settings
+* A GUI to manage these profiles in addition to the command line.
+
+## Issue reporting
+
+* Please report only issues directly related to this project or misbehavior caused by applying this tool. 
+* Unless caused by applying `dpiswitch`, glitches, artifacts, blurry text etc should be reported over at the [KDE Bug tracker](https://bugs.kde.org).
