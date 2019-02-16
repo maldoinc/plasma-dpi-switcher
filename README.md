@@ -58,7 +58,7 @@ Plasma configuration is stored in a [INI-like](https://en.wikipedia.org/wiki/INI
 
 While this paragraph shows how to change the "thickness" of panels, the same method can be used to update widgets. Panel "thickness" denotes width or height, depending on whether the panel is horizontal or vertical.
 
-In order to scale the panel's width or height one must locate the panel's Groups/Section's and use them in the configuration file to identify it.
+In order to scale the panel's width or height one must locate the panel's Groups/Sections and use them in the configuration file to identify it.
 
 An example configuration of a bottom panel:
 ```ini
@@ -66,7 +66,7 @@ An example configuration of a bottom panel:
 thickness=38
 ```
 
-each of the groups is an element of the object inside the `panels` array. The above example would get translated into
+each of the groups is an element inside the object inside the `groups` array. The above example would get translated into
 
 ```json
 {
