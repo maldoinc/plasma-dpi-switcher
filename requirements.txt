@@ -1,2 +1,2 @@
-xlib==0.21
-jsonschema==2.6.0
+xlib==0.*
+jsonschema==2.*
