@@ -30,7 +30,6 @@ try:
     if profile is None:
         raise Exception("Unable to find profile {}".format(profile))
 
-    params = plasma.read_startup_script(CONFIG_STARTUP)
     scale_factors = display_get_scaling_str(output_list_names(), profile.scaling)
 
     plasma.kill()

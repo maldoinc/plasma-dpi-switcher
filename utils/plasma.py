@@ -30,10 +30,6 @@ def safe_read_ini(filename):
     return config_parser
 
 
-def read_startup_script(filename):
-    return dict(safe_read_ini(filename)['__pytemp__'])
-
-
 def session_end():
     subprocess.call(["qdbus", "org.kde.ksmserver", "/KSMServer", "logout", "0", "0", "0"])
 
