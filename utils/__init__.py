@@ -51,3 +51,10 @@ def prompt_for_profile(config):
     index = int(input("Choose a profile number: ")) - 1
 
     return config.profiles[index].name
+
+
+def profile_save_to_file(profile, filename):
+    c = json.load(open(filename, 'r'))
+    c["profiles"].append(profile)
+
+    open(filename, 'w').write(json.dumps(c))

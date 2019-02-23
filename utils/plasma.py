@@ -116,8 +116,8 @@ def read_current_profile():
     return {
         "scaling": int(conf.get(SECTION_ROOT, 'kcmfonts_general_forcefontdpi')) / 96,
         "cursor": {
-            "size": conf.get(SECTION_ROOT, 'kcminputrc_mouse_cursorsize')
+            "size": int(conf.get(SECTION_ROOT, 'kcminputrc_mouse_cursorsize'))
         },
         "panels": plasmashell_config_read_get_panel_info(),
-        "widgets": {}
+        "widgets": []
     }
