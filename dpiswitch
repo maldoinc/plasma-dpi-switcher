@@ -16,7 +16,6 @@ parser.add_argument('--no-logout', action='store_true', help="Do not end current
 args = parser.parse_args()
 try:
     validator.assert_valid_config(args.config, os.path.join(sys.path[0], 'schema.json'))
-    config = load_config_file(args.config)
 
     if args.generate:
         print("Generating a new profile based on the current settings.")
@@ -29,7 +28,9 @@ try:
         print("Profile sucessfuly generated!")
         exit(0)
 
+    config = load_config_file(args.config)
     profilename = args.profile if args.profile is not None else prompt_for_profile(config)
+
     plasma.apply_profile(find_profile(config, profilename))
 
     if not args.no_logout:
