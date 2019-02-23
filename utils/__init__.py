@@ -37,7 +37,7 @@ def find_profile(config, name):
         if profile.name == name:
             return profile
 
-    return None
+    raise Exception("Unable to find profile {}".format(name))
 
 
 def prompt_for_profile(config):

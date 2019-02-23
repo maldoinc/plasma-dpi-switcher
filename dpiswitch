@@ -30,12 +30,7 @@ try:
         exit(0)
 
     profilename = args.profile if args.profile is not None else prompt_for_profile(config)
-    profile = find_profile(config, profilename)
-
-    if profile is None:
-        raise Exception("Unable to find profile {}".format(profile))
-
-    plasma.apply_profile(profile)
+    plasma.apply_profile(find_profile(config, profilename))
 
     if not args.no_logout:
         plasma.session_end()
