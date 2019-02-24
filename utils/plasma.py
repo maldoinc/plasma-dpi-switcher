@@ -14,17 +14,22 @@ CONFIG_APPLETS = os.path.expanduser('~/.config/plasma-org.kde.plasma.desktop-app
 SECTION_ROOT = 'root'
 
 
-def config_write(filename, group, key, value):
-    params = ['kwriteconfig5', '--file', filename, '--key', key]
-
+def kconfig_generate_groups_params(group):
     if isinstance(group, list):
+        params = []
+
         for g in group:
             params.append('--group')
             params.append(str(g))
-    else:
-        params.append('--group')
-        params.append(str(group))
 
+        return str
+
+    return ['--group', str(group)]
+
+
+def config_write(filename, group, key, value):
+    params = ['kwriteconfig5', '--file', filename, '--key', key]
+    params.extend(kconfig_generate_groups_params(group))
     params.append(str(value))
 
     subprocess.call(params)
@@ -32,14 +37,7 @@ def config_write(filename, group, key, value):
 
 def config_read(filename, group, key):
     params = ['kreadconfig5', '--file', filename, '--key', key]
-
-    if isinstance(group, list):
-        for g in group:
-            params.append('--group')
-            params.append(str(g))
-    else:
-        params.append('--group')
-        params.append(str(group))
+    params.extend(kconfig_generate_groups_params(group))
 
     try:
         return int(subprocess.check_output(params).splitlines()[0])
