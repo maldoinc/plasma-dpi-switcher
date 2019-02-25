@@ -22,7 +22,7 @@ def kconfig_generate_groups_params(group):
             params.append('--group')
             params.append(str(g))
 
-        return str
+        return params
 
     return ['--group', str(group)]
 
