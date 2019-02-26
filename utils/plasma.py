@@ -15,6 +15,9 @@ SECTION_ROOT = 'root'
 
 
 def kconfig_generate_groups_params(group):
+    if group is None:
+        return []
+
     if isinstance(group, list):
         params = []
 
@@ -27,20 +30,28 @@ def kconfig_generate_groups_params(group):
     return ['--group', str(group)]
 
 
-def config_write(filename, group, key, value):
+def config_write_get_params(filename, group, key, value):
     params = ['kwriteconfig5', '--file', filename, '--key', key]
     params.extend(kconfig_generate_groups_params(group))
     params.append(str(value))
 
-    subprocess.call(params)
+    return params
 
 
-def config_read(filename, group, key):
+def config_write(filename, group, key, value):
+    subprocess.call(config_write_get_params(filename, group, key, value))
+
+
+def config_read_get_params(filename, group, key):
     params = ['kreadconfig5', '--file', filename, '--key', key]
     params.extend(kconfig_generate_groups_params(group))
 
+    return params
+
+
+def config_read(filename, group, key):
     try:
-        return int(subprocess.check_output(params).splitlines()[0])
+        return int(subprocess.check_output(config_read_get_params(filename, group, key)).splitlines()[0])
     except ValueError:
         return 0
 
