@@ -101,7 +101,10 @@ def plasmashell_find_panel_groups():
 
 
 def sections_to_array(sections):
-    return sections[1:-1].split('][')
+    if isinstance(sections, str) and sections.startswith('[') and sections.endswith(']'):
+        return sections[1:-1].split('][')
+
+    raise Exception("'{}' does not contain any sections".format(sections))
 
 
 def plasmashell_config_read_get_panel_info():

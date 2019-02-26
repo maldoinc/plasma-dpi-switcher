@@ -1,6 +1,7 @@
 import unittest
 
-from utils.plasma import kconfig_generate_groups_params, config_write_get_params, config_read_get_params
+from utils.plasma import kconfig_generate_groups_params, config_write_get_params, config_read_get_params, \
+    sections_to_array
 
 
 class TestPlasma(unittest.TestCase):
@@ -21,6 +22,12 @@ class TestPlasma(unittest.TestCase):
                          config_read_get_params("x", None, "Key"))
         self.assertEqual(['kreadconfig5', '--file', 'x', '--key', 'Key', '--group', 'G'],
                          config_read_get_params("x", "G", "Key"))
+
+    def test_sections_to_array(self):
+        self.assertRaises(Exception, sections_to_array, 'no sections here')
+        self.assertRaises(Exception, sections_to_array, None)
+        self.assertEqual(['a'], sections_to_array('[a]'))
+        self.assertEqual(['a', 'b', 'c'], sections_to_array('[a][b][c]'))
 
 
 if __name__ == '__main__':
