@@ -10,7 +10,7 @@ from utils import load_config_file, get_default_config_filename, find_profile, p
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--profile')
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
-parser.add_argument('--config', default=get_default_config_filename())
+parser.add_argument('--config', default=get_default_config_filename(os.environ))
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
 args = parser.parse_args()
