@@ -84,7 +84,6 @@ each of the groups is an element inside the object inside the `groups` array. Th
 
 ## Future work
 
-* Automatic profile generation based on current settings
 * A GUI to manage these profiles in addition to the command line.
 
 ## Issue reporting
