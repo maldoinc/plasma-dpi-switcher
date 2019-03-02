@@ -2,6 +2,10 @@
 
 Configure and automate KDE Plasma DPI scaling from the command line by using a JSON-based configuration file with different profiles.
 
+<p align="center">
+  <img src='res/demo.gif' alt='dpiswitch in action' />
+</p>
+
 ---
 
 ## Purpose
