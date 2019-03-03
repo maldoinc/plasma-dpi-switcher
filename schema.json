@@ -43,7 +43,7 @@
                     },
                     "description": {
                         "$id": "#/properties/profiles/items/properties/description",
-                        "type": "string",
+                        "type": ["string", "null"],
                         "title": "The Description Schema",
                         "default": "",
                         "examples": [

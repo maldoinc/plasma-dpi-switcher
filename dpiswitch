@@ -8,8 +8,9 @@ from utils import load_config_file, get_default_config_filename, find_profile, p
     profile_save_to_file, profile_remove
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
-parser.add_argument('--profile', help="Profile name being interacted with")
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
+parser.add_argument('--profile', help="Profile name being interacted with", required='--generate' in sys.argv)
+parser.add_argument('--description', help="Description for the profile to be generated")
 parser.add_argument('--delete-profile', action='store_true', help="Remove a profile from the config file")
 parser.add_argument('--config', default=get_default_config_filename(os.environ))
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
@@ -21,8 +22,8 @@ try:
     if args.generate:
         print("Generating a new profile based on the current settings.")
         profile = plasma.read_current_profile()
-        profile["name"] = input("Profile name: ")
-        profile["description"] = input("Profile description: ")
+        profile["name"] = args.profile
+        profile["description"] = args.description
 
         profile_save_to_file(profile, args.config)
 
