@@ -57,4 +57,15 @@ def profile_save_to_file(profile, filename):
     c = json.load(open(filename, 'r'))
     c["profiles"].append(profile)
 
+    save_config(c, filename)
+
+
+def profile_remove(profile, filename):
+    c = json.load(open(filename, 'r'))
+    c["profiles"] = [p for p in c["profiles"] if p["name"] != profile]
+
+    save_config(c, filename)
+
+
+def save_config(c, filename):
     open(filename, 'w').write(json.dumps(c))

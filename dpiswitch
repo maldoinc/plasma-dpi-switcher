@@ -5,11 +5,12 @@ import os
 import sys
 
 from utils import load_config_file, get_default_config_filename, find_profile, prompt_for_profile, validator, plasma, \
-    profile_save_to_file
+    profile_save_to_file, profile_remove
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
-parser.add_argument('--profile')
+parser.add_argument('--profile', help="Profile name being interacted with")
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
+parser.add_argument('--delete-profile', action='store_true', help="Remove a profile from the config file")
 parser.add_argument('--config', default=get_default_config_filename(os.environ))
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
 
@@ -30,8 +31,15 @@ try:
 
     config = load_config_file(args.config)
     profilename = args.profile if args.profile is not None else prompt_for_profile(config)
+    profile = find_profile(config, profilename)
 
-    plasma.apply_profile(find_profile(config, profilename))
+    if args.delete_profile:
+        profile_remove(profilename, args.config)
+
+        print("Profile succesfuly deleted")
+        exit(0)
+
+    plasma.apply_profile(profile)
 
     if not args.no_logout:
         plasma.session_end()
