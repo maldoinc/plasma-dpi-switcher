@@ -5,7 +5,7 @@ import os
 import sys
 
 from utils import load_config_file, get_default_config_filename, find_profile, prompt_for_profile, validator, plasma, \
-    profile_save_to_file, profile_remove
+    profile_save_to_file, profile_remove, schema
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
@@ -17,7 +17,7 @@ parser.add_argument('--no-logout', action='store_true', help="Do not end current
 
 args = parser.parse_args()
 try:
-    validator.assert_valid_config(args.config, os.path.join(sys.path[0], 'schema.json'))
+    validator.assert_valid_config(args.config, schema.SCHEMA)
 
     if args.generate:
         print("Generating a new profile based on the current settings.")

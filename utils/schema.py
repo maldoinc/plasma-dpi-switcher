@@ -1,9 +1,8 @@
-{
+SCHEMA = {
     "definitions": {},
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "http://example.com/root.json",
     "type": "object",
-    "title": "The Root Schema",
     "required": [
         "version",
         "profiles"
@@ -13,18 +12,14 @@
             "$id": "#/properties/version",
             "type": "string",
             "enum": ["1.0"],
-            "title": "The Version Schema",
-            "default": "",
             "pattern": "^(.*)$"
         },
         "profiles": {
             "$id": "#/properties/profiles",
             "type": "array",
-            "title": "The Profiles Schema",
             "items": {
                 "$id": "#/properties/profiles/items",
                 "type": "object",
-                "title": "The Items Schema",
                 "required": [
                     "name",
                     "description",
@@ -37,30 +32,20 @@
                     "name": {
                         "$id": "#/properties/profiles/items/properties/name",
                         "type": "string",
-                        "title": "The Name Schema",
-                        "default": "",
                         "pattern": "^(.*)$"
                     },
                     "description": {
                         "$id": "#/properties/profiles/items/properties/description",
                         "type": ["string", "null"],
-                        "title": "The Description Schema",
-                        "default": "",
-                        "examples": [
-                            "Set scaling to 1.5"
-                        ],
                         "pattern": "^(.*)$"
                     },
                     "scaling": {
                         "$id": "#/properties/profiles/items/properties/scaling",
-                        "type": "number",
-                        "title": "The Scaling Schema",
-                        "default": 0
+                        "type": "number"
                     },
                     "cursor": {
                         "$id": "#/properties/profiles/items/properties/cursor",
                         "type": "object",
-                        "title": "The Cursor Schema",
                         "required": [
                             "size"
                         ],
@@ -72,20 +57,16 @@
                                     24,
                                     36,
                                     48
-                                ],
-                                "title": "Cursor size",
-                                "default": 0
+                                ]
                             }
                         }
                     },
                     "panels": {
                         "$id": "#/properties/profiles/items/properties/panels",
                         "type": "array",
-                        "title": "The Panels Schema",
                         "items": {
                             "$id": "#/properties/profiles/items/properties/panels/items",
                             "type": "object",
-                            "title": "The Items Schema",
                             "required": [
                                 "groups",
                                 "thickness"
@@ -94,20 +75,16 @@
                                 "groups": {
                                     "$id": "#/properties/profiles/items/properties/panels/items/properties/groups",
                                     "type": "array",
-                                    "title": "The Groups Schema",
                                     "items": {
-                                        "$id": "#/properties/profiles/items/properties/panels/items/properties/groups/items",
+                                        "$id": "#/properties/profiles/items/properties/panels/items/properties/groups"
+                                               "/items",
                                         "type": "string",
-                                        "title": "The Items Schema",
-                                        "default": "",
                                         "pattern": "^(.*)$"
                                     }
                                 },
                                 "thickness": {
                                     "$id": "#/properties/profiles/items/properties/panels/items/properties/thickness",
                                     "type": "integer",
-                                    "title": "The Thickness Schema",
-                                    "default": 0,
                                     "minimum": 0
                                 }
                             }
@@ -116,11 +93,9 @@
                     "widgets": {
                         "$id": "#/properties/profiles/items/properties/widgets",
                         "type": "array",
-                        "title": "The Widgets Schema",
                         "items": {
                             "$id": "#/properties/profiles/items/properties/widgets/items",
                             "type": "object",
-                            "title": "The Items Schema",
                             "required": [
                                 "groups",
                                 "key",
@@ -130,15 +105,13 @@
                                 "groups": {
                                     "$id": "#/properties/profiles/items/properties/widgets/items/properties/groups",
                                     "type": "array",
-                                    "title": "The Groups Schema",
                                     "items": {
-                                        "$id": "#/properties/profiles/items/properties/widgets/items/properties/groups/items",
+                                        "$id": "#/properties/profiles/items/properties/widgets/items/properties"
+                                               "/groups/items",
                                         "type": [
                                             "string",
                                             "integer"
                                         ],
-                                        "title": "The Items Schema",
-                                        "default": "",
                                         "pattern": "^(.*)$"
                                     }
                                 },
@@ -148,8 +121,6 @@
                                         "string",
                                         "integer"
                                     ],
-                                    "title": "The Key Schema",
-                                    "default": "",
                                     "pattern": "^(.*)$"
                                 },
                                 "value": {
@@ -159,9 +130,7 @@
                                         "string",
                                         "number",
                                         "integer"
-                                    ],
-                                    "title": "The Value Schema",
-                                    "default": 0
+                                    ]
                                 }
                             }
                         }
