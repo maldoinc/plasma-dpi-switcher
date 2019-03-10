@@ -1,6 +1,6 @@
 import unittest
 
-from utils.plasma import kconfig_generate_groups_params, config_write_get_params, config_read_get_params, \
+from dpiswitchutils.plasma import kconfig_generate_groups_params, config_write_get_params, config_read_get_params, \
     sections_to_array
 
 

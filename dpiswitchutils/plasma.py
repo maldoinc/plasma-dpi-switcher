@@ -2,7 +2,7 @@ import configparser
 import os
 import subprocess
 
-from utils import display_get_scaling_str, output_list_names, get_font_dpi
+from .utils import display_get_scaling_str, output_list_names, get_font_dpi
 
 CONFIG_KDEGLOBALS = os.path.expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = os.path.expanduser('~/.config/kcmfonts')

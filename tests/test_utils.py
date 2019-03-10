@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from utils import display_get_scaling_str, get_font_dpi, get_default_config_filename
+from dpiswitchutils.utils import display_get_scaling_str, get_font_dpi, get_default_config_filename
 
 
 class TestUtils(unittest.TestCase):

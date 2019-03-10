@@ -15,13 +15,26 @@ Manually changing DPI settings, panel height/width, clock font or other settings
 
 This tool will automatically update all the necessary settings reducing manual work to a minimum.
 
+## Installation
+
+### Install
+```bash
+python3 setup.py install --record files.txt
+```
+
+### Uninstall
+
+```bash
+rm $(cat files.txt)
+```
+
 ## Usage
 
 `$ dpiswitch [--config profiles.json] [--profile name]`
 
 If no value for `config` is specified, it will default to `~/.config/maldoinc/dpiswitch/profile.json`. If `profile` is omitted, then a menu listing all the profiles will be shown.
 
-> Nb: Executing `dpiswitch` will kill your current plasma session and force a logout, so make sure not to have any unsaved work.
+> Nb: Executing `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
 
 Users may use the `--generate` switch to create a profile based on the current system settings. Alternatively a sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
 

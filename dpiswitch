@@ -4,8 +4,8 @@ import argparse
 import os
 import sys
 
-from utils import load_config_file, get_default_config_filename, find_profile, prompt_for_profile, validator, plasma, \
-    profile_save_to_file, profile_remove, schema
+from dpiswitchutils import validator, plasma, schema
+from dpiswitchutils.utils import *
 
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
