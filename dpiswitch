@@ -10,7 +10,7 @@ from dpiswitchutils.utils import *
 parser = argparse.ArgumentParser(description="Command-line KDE Plasma DPI change utility")
 parser.add_argument('--generate', action='store_true', help="Generate a profile based on the current settings")
 parser.add_argument('--profile', help="Profile name being interacted with", required='--generate' in sys.argv)
-parser.add_argument('--description', help="Description for the profile to be generated")
+parser.add_argument('--description', action='store', default='', help="Description for the profile to be generated")
 parser.add_argument('--delete-profile', action='store_true', help="Remove a profile from the config file")
 parser.add_argument('--config', default=get_default_config_filename(os.environ))
 parser.add_argument('--no-logout', action='store_true', help="Do not end current desktop session")
