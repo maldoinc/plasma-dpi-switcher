@@ -27,7 +27,7 @@ try:
 
         profile_save_to_file(profile, args.config)
 
-        print("Profile sucessfuly generated!")
+        print("Profile successfully generated!")
         exit(0)
 
     config = load_config_file(args.config)
@@ -37,7 +37,7 @@ try:
     if args.delete_profile:
         profile_remove(profilename, args.config)
 
-        print("Profile succesfuly deleted")
+        print("Profile successfully deleted")
         exit(0)
 
     plasma.apply_profile(profile)
