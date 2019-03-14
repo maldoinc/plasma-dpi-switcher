@@ -19,6 +19,7 @@ This tool will automatically update all the necessary settings reducing manual w
 
 ### Install
 ```bash
+pip3 install -r requirements.txt
 python3 setup.py install --record files.txt
 ```
 
