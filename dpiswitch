@@ -31,7 +31,11 @@ try:
         exit(0)
 
     config = load_config_file(args.config)
-    profilename = args.profile if args.profile is not None else prompt_for_profile(config)
+    try:
+        profilename = args.profile if args.profile is not None else prompt_for_profile(config)
+    except KeyboardInterrupt:
+        exit(0)
+
     profile = find_profile(config, profilename)
 
     if args.delete_profile:
