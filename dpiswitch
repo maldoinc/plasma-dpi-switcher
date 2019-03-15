@@ -31,11 +31,7 @@ try:
         exit(0)
 
     config = load_config_file(args.config)
-    try:
-        profilename = args.profile if args.profile is not None else prompt_for_profile(config)
-    except KeyboardInterrupt:
-        exit(0)
-
+    profilename = args.profile if args.profile is not None else prompt_for_profile(config)
     profile = find_profile(config, profilename)
 
     if args.delete_profile:
@@ -51,3 +47,5 @@ try:
 except Exception as e:
     print("[ERR] {}".format(e))
     exit(1)
+except KeyboardInterrupt:
+    exit(0)
