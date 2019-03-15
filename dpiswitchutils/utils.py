@@ -1,9 +1,9 @@
 import json
-import os
-from collections import namedtuple
 
 from Xlib import display
 from Xlib.ext import randr
+
+from dpiswitchutils.config import save_config
 
 
 def output_list_names():
@@ -20,16 +20,6 @@ def display_get_scaling_str(displays, scaling):
 
 def get_font_dpi(scaling):
     return int(96 * scaling)
-
-
-def get_default_config_filename(env):
-    f = os.path.join(env.get("XDG_CONFIG_HOME", "~/.config"), "maldoinc/dpiswitch/profile.json")
-
-    return os.path.expanduser(f)
-
-
-def load_config_file(filename):
-    return json.load(open(filename, 'r'), object_hook=lambda d: namedtuple('Profile', d.keys())(*d.values()))
 
 
 def find_profile(config, name):
@@ -67,30 +57,4 @@ def profile_remove(profile, filename):
     save_config(c, filename)
 
 
-def save_config(c, filename):
-    open(filename, 'w').write(json.dumps(c))
 
-
-def get_default_config():
-    return {
-        "version": "1.0",
-        "profiles": []
-    }
-
-
-def generate_default_config(fn):
-    os.makedirs(os.path.dirname(fn))
-    open(fn, 'w').write(json.dumps(get_default_config()))
-
-
-def get_default_config_filename_assert_exists(env):
-    """
-    Returns the default config filename and generates it with default
-    settings if it does not exist
-    """
-    fn = get_default_config_filename(env)
-
-    if not os.path.exists(fn):
-        generate_default_config(fn)
-
-    return fn
