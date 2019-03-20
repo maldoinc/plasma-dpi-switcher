@@ -36,8 +36,14 @@ If no value for `config` is specified, it will default to `~/.config/maldoinc/dp
 
 > Nb: Executing `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
 
-Users may use the `--generate` switch to create a profile based on the current system settings. Alternatively a sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
+---
 
+Users may use the `--generate` switch to create a profile based on the current system settings. The config generation switch will not add any widget settings to it. They need to be added manually. The [Widget and Panel configuration](#widget-and-panel-configuration) describes how to locate and identify the groups for various configurations that the installed widgets are saving.
+
+
+A sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
+
+N.b.: The actual groups in the `panels` and `widgets` keys will be different in your system. 
 ```json
 {
     "version": "1.0",
