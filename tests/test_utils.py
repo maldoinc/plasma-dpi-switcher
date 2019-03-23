@@ -1,7 +1,5 @@
-import os
 import unittest
-
-from dpiswitchutils.utils import display_get_scaling_str, get_font_dpi
+from dpiswitchutils.utils import display_get_scaling_str, get_font_dpi, font_dpi_to_scale_factor
 
 
 class TestUtils(unittest.TestCase):
@@ -15,6 +13,11 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(120, get_font_dpi(1.25))
         self.assertEqual(144, get_font_dpi(1.5))
         self.assertEqual(192, get_font_dpi(2))
+
+    def test_font_dpi_to_scale_factor(self):
+        self.assertEqual(1, font_dpi_to_scale_factor(0))
+        self.assertEqual(1, font_dpi_to_scale_factor(96))
+        self.assertEqual(1.5, font_dpi_to_scale_factor(144))
 
 
 if __name__ == '__main__':
