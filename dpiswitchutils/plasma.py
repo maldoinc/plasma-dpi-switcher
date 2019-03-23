@@ -2,7 +2,8 @@ import configparser
 import os
 import subprocess
 
-from .utils import display_get_scaling_str, output_list_names, scale_factor_to_font_dpi, font_dpi_to_scale_factor
+from .utils import display_get_scaling_str, output_list_names, scale_factor_to_font_dpi, font_dpi_to_scale_factor, \
+    try_parse_int
 
 CONFIG_KDEGLOBALS = os.path.expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = os.path.expanduser('~/.config/kcmfonts')
@@ -128,7 +129,7 @@ def read_current_profile():
     return {
         "scaling": font_dpi_to_scale_factor(int(conf.get(SECTION_ROOT, 'kcmfonts_general_forcefontdpi'))),
         "cursor": {
-            "size": int(conf.get(SECTION_ROOT, 'kcminputrc_mouse_cursorsize'))
+            "size": try_parse_int(conf.get(SECTION_ROOT, 'kcminputrc_mouse_cursorsize'), 24)
         },
         "panels": plasmashell_config_read_get_panel_info(),
         "widgets": []

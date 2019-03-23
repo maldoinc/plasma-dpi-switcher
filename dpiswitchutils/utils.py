@@ -64,4 +64,8 @@ def profile_remove(profile, filename):
     save_config(c, filename)
 
 
-
+def try_parse_int(val, default=None):
+    try:
+        return int(val)
+    except ValueError:
+        return default
