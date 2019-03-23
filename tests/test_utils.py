@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from dpiswitchutils.utils import display_get_scaling_str, get_font_dpi, get_default_config_filename
+from dpiswitchutils.utils import display_get_scaling_str, get_font_dpi
 
 
 class TestUtils(unittest.TestCase):
@@ -15,13 +15,6 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(120, get_font_dpi(1.25))
         self.assertEqual(144, get_font_dpi(1.5))
         self.assertEqual(192, get_font_dpi(2))
-
-    def test_get_default_config_filename(self):
-        env_xdg = {"XDG_CONFIG_HOME": "/opt/config"}
-
-        self.assertEqual(os.path.expanduser('~/.config/maldoinc/dpiswitch/profile.json'),
-                         get_default_config_filename({}))
-        self.assertEqual('/opt/config/maldoinc/dpiswitch/profile.json', get_default_config_filename(env_xdg))
 
 
 if __name__ == '__main__':
