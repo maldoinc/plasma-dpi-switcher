@@ -18,7 +18,7 @@ def display_get_scaling_str(displays, scaling):
     return ";".join(["{0}={1}".format(d, scaling) for d in displays])
 
 
-def get_font_dpi(scaling):
+def scale_factor_to_font_dpi(scaling):
     return int(96 * scaling)
 
 

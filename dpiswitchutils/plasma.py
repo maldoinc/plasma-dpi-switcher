@@ -2,7 +2,7 @@ import configparser
 import os
 import subprocess
 
-from .utils import display_get_scaling_str, output_list_names, get_font_dpi, font_dpi_to_scale_factor
+from .utils import display_get_scaling_str, output_list_names, scale_factor_to_font_dpi, font_dpi_to_scale_factor
 
 CONFIG_KDEGLOBALS = os.path.expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = os.path.expanduser('~/.config/kcmfonts')
@@ -83,7 +83,7 @@ def apply_profile(profile):
 
     config_write(CONFIG_KDEGLOBALS, "KScreen", "ScaleFactor", profile.scaling)
     config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", scale_factors)
-    config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", get_font_dpi(profile.scaling))
+    config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", scale_factor_to_font_dpi(profile.scaling))
     config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", profile.cursor.size)
 
     if os.path.isfile(CONFIG_STARTUP):
