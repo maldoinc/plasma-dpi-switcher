@@ -51,7 +51,7 @@ Users may use the `--generate` switch to create a profile based on the current s
 
 A sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
 
-N.b.: The actual groups in the `panels` and `widgets` keys will be different in your system. 
+> NB: The actual groups in the `panels` and `widgets` keys will be different in your system. 
 ```json
 {
     "version": "1.0",
