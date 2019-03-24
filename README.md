@@ -41,12 +41,13 @@ rm $(cat files.txt)
 
 If no value for `config` is specified, it will default to `~/.config/maldoinc/dpiswitch/profile.json`. If `profile` is omitted, then a menu listing all the profiles will be shown.
 
-> Nb: Executing `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
+> NB: Executing `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
 
 ---
 
 Users may use the `--generate` switch to create a profile based on the current system settings. The config generation switch will not add any widget settings to it. They need to be added manually. The [Widget and Panel configuration](#widget-and-panel-configuration) describes how to locate and identify the groups for various configurations that the installed widgets are saving.
 
+> NB: It is strongly recommended to log out and log in before using the `--generate` switch if you modified any settings such as panel height/width or widget configuration so that plasma will be able to save them to disk. 
 
 A sample `profile.json` file which scales the screen, fonts, sets the height of the bottom panel and updates widget configuration is provided below:
 
