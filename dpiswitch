@@ -21,7 +21,6 @@ try:
     validator.assert_valid_config(args.config, schema.SCHEMA)
 
     if args.generate:
-        print("Generating a new profile based on the current settings.")
         profile = plasma.read_current_profile()
         profile["name"] = args.profile
         profile["description"] = args.description
@@ -29,6 +28,7 @@ try:
         profile_save_to_file(profile, args.config)
 
         print("Profile successfully generated!")
+        print("Config file:", args.config)
         exit(0)
 
     config = load_config_file(args.config)
