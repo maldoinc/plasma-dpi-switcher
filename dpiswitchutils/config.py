@@ -14,7 +14,7 @@ def load_config_file(filename):
 
 
 def save_config(c, filename):
-    open(filename, 'w').write(json.dumps(c))
+    open(filename, 'w').write(json.dumps(c, indent=4))
 
 
 def get_default_config():
@@ -26,7 +26,7 @@ def get_default_config():
 
 def generate_default_config(fn):
     os.makedirs(os.path.dirname(fn))
-    open(fn, 'w').write(json.dumps(get_default_config()))
+    open(fn, 'w').write(json.dumps(get_default_config(), indent=4))
 
 
 def get_default_config_filename_assert_exists(env):
