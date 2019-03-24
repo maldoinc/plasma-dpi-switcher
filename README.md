@@ -17,9 +17,16 @@ This tool will automatically update all the necessary settings reducing manual w
 
 ## Installation
 
+### Requirements
+
+- Python 3
+- Python 3 setuptools
+
 ### Install
 ```bash
-python3 setup.py install --record files.txt
+git clone https://github.com/maldoinc/plasma-dpi-switcher
+cd plasma-dpi-switcher
+sudo python3 setup.py install --record files.txt
 ```
 
 ### Uninstall
