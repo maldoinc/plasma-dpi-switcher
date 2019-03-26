@@ -1,5 +1,7 @@
 # dpiswitch — a KDE Plasma DPI switcher
 
+![CircleCI (all branches)](https://img.shields.io/circleci/project/github/maldoinc/plasma-dpi-switcher/develop.svg?logo=circleci&style=flat-square)
+
 Configure and automate KDE Plasma DPI scaling from the command line by using a JSON-based configuration file with different profiles.
 
 <p align="center">

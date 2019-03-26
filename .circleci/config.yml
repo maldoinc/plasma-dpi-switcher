@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.0
+    steps:
+      - checkout
+      - run:
+          command: |
+            python3 -m virtualenv venv
+            . ./venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+            python3 -m unittest discover -s tests
