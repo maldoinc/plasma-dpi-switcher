@@ -21,7 +21,7 @@ SCHEMA = {
                         "properties": {
                             "size": {
                                 "type": "integer",
-                                "enum": [24, 36, 48]
+                                "minimum": 0
                             }
                         }
                     },
