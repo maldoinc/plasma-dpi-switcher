@@ -55,7 +55,7 @@ The typical scenario for generating two profiles, a "default" one and a "scaled"
 
 If no value for `config` is specified, it will default to `~/.config/maldoinc/dpiswitch/profile.json`. If `profile` is omitted, then a menu listing all the profiles will be shown.
 
-> NB: Executing `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
+> NB: When applying a profile, `dpiswitch` will kill your current plasma session, so make sure not to have any unsaved work.
 
 ---
 
