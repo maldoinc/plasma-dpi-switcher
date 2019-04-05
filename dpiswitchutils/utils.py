@@ -4,6 +4,7 @@ from Xlib import display
 from Xlib.ext import randr
 
 from dpiswitchutils.config import save_config
+from dpiswitchutils.exceptions import ProfileNotFoundException
 
 
 def output_list_names():
@@ -34,7 +35,7 @@ def find_profile(config, name):
         if profile.name == name:
             return profile
 
-    raise Exception("Unable to find profile {}".format(name))
+    raise ProfileNotFoundException("Unable to find profile {}".format(name))
 
 
 def prompt_for_profile(config):
