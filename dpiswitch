@@ -34,7 +34,7 @@ try:
 
         profile_save_to_file(profile, args.config)
 
-        print("Profile successfully generated!")
+        print("Profile '{}' successfully generated!".format(args.profile))
         print("Config file:", args.config)
         exit(0)
 
