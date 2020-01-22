@@ -24,10 +24,7 @@ def scale_factor_to_font_dpi(scaling):
 
 
 def font_dpi_to_scale_factor(dpi):
-    if dpi == 0:
-        return 1
-
-    return dpi / 96
+    return 1 if dpi == 0 else dpi / 96
 
 
 def find_profile(config, name):
