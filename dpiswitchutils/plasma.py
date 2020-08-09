@@ -2,17 +2,13 @@ import configparser
 import os
 import subprocess
 
-from .utils import display_get_scaling_str, output_list_names, scale_factor_to_font_dpi, font_dpi_to_scale_factor, \
-    try_parse_int
+from .utils import display_get_scaling_str, output_list_names, scale_factor_to_font_dpi
 
 CONFIG_KDEGLOBALS = os.path.expanduser('~/.config/kdeglobals')
 CONFIG_KCMFONTS = os.path.expanduser('~/.config/kcmfonts')
 CONFIG_KCMINPUT = os.path.expanduser('~/.config/kcminputrc')
-CONFIG_STARTUP = os.path.expanduser('~/.config/startupconfig')
 CONFIG_SHELL = os.path.expanduser('~/.config/plasmashellrc')
 CONFIG_APPLETS = os.path.expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
-
-SECTION_ROOT = 'root'
 
 
 def kconfig_generate_groups_params(group):
@@ -60,8 +56,10 @@ def config_read(filename, group, key):
 def safe_read_ini(filename):
     contents = open(filename, 'r').read()
 
+    # not fool-proof as the config may start with empty lines or comments
+    # but for our purposes seems to work well enough as these files are not edited by hand
     if not contents.startswith('['):
-        contents = '[{}]\n{}'.format(SECTION_ROOT, contents)
+        contents = '[__ROOT__]\n{}'.format(contents)
 
     config_parser = configparser.RawConfigParser()
     config_parser.read_string(contents)
@@ -86,9 +84,6 @@ def apply_profile(profile):
     config_write(CONFIG_KDEGLOBALS, "KScreen", "ScreenScaleFactors", scale_factors)
     config_write(CONFIG_KCMFONTS, "General", "forceFontDPI", scale_factor_to_font_dpi(profile.scaling))
     config_write(CONFIG_KCMINPUT, "Mouse", "cursorSize", profile.cursor.size)
-
-    if os.path.isfile(CONFIG_STARTUP):
-        os.remove(CONFIG_STARTUP)
 
     for panel in profile.panels:
         config_write(CONFIG_SHELL, panel.groups, "thickness", panel.thickness)
@@ -124,12 +119,10 @@ def plasmashell_config_read_get_panel_info():
 
 
 def read_current_profile():
-    conf = safe_read_ini(CONFIG_STARTUP)
-
     return {
-        "scaling": font_dpi_to_scale_factor(int(conf.get(SECTION_ROOT, 'kcmfonts_general_forcefontdpi'))),
+        "scaling": safe_read_ini(CONFIG_KDEGLOBALS).getfloat('KScreen', 'ScaleFactor', fallback=1),
         "cursor": {
-            "size": try_parse_int(conf.get(SECTION_ROOT, 'kcminputrc_mouse_cursorsize'), 24)
+            "size": safe_read_ini(CONFIG_KCMINPUT).getint('Mouse', 'cursorSize', fallback=24)
         },
         "panels": plasmashell_config_read_get_panel_info(),
         "widgets": []

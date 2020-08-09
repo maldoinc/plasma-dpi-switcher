@@ -23,10 +23,6 @@ def scale_factor_to_font_dpi(scaling):
     return int(96 * scaling)
 
 
-def font_dpi_to_scale_factor(dpi):
-    return 1 if dpi == 0 else dpi / 96
-
-
 def find_profile(config, name):
     for profile in config.profiles:
         if profile.name == name:
@@ -62,7 +58,7 @@ def profile_remove(profile, filename):
     save_config(c, filename)
 
 
-def try_parse_int(val, default=None):
+def get_int(val, default=None):
     try:
         return int(val)
     except ValueError:
